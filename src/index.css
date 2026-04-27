@@ -1,0 +1,24 @@
+@import "tailwindcss";
+/* Outer hexagon */
+.clip-hexagon {
+  clip-path: polygon(
+    25% 5%, 
+    75% 5%, 
+    100% 50%, 
+    75% 95%, 
+    25% 95%, 
+    0% 50%
+  );
+}
+
+/* Inner image hex */
+.clip-hexagon-inner {
+  clip-path: polygon(
+    25% 5%, 
+    75% 5%, 
+    100% 50%, 
+    75% 95%, 
+    25% 95%, 
+    0% 50%
+  );
+}

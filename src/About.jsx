@@ -1,97 +1,102 @@
 import React, { useState } from "react";
 import profile from "./assets/profile.png"; 
-import { useNavigate } from "react-router-dom"; // useNavigate import kiya
-import { FaArrowLeft } from "react-icons/fa"; // Icon import kiya
+import { useNavigate } from "react-router-dom"; 
+import { FaArrowLeft } from "react-icons/fa"; 
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("education");
-  const navigate = useNavigate(); // Navigation initialize kiya
+  const navigate = useNavigate(); 
 
   const tabs = [
-    { id: "education", label: "Education Qualification" },
-    { id: "course", label: "Short Course" },
+    { id: "education", label: "Education" },
+    { id: "course", label: "Courses" },
     { id: "experience", label: "Experience" },
     { id: "details", label: "Details" },
   ];
 
   return (
-    <div className="min-h-screen bg-[#2f3b46] text-white px-6 md:px-16 py-10 md:py-16 relative">
+    <div className="min-h-screen bg-[#2f3b46] text-white px-4 md:px-16 py-6 md:py-16 selection:bg-cyan-400 selection:text-black">
       
-      {/* --- Back Button --- */}
-      <div className="max-w-6xl mx-auto mb-8">
+      {/* --- Responsive Header & Back Button --- */}
+      <div className="max-w-6xl mx-auto flex justify-between items-center mb-10">
         <button 
           onClick={() => navigate(-1)} 
-          className="flex items-center gap-3 text-cyan-400 hover:text-white transition-all duration-300 group"
+          className="flex items-center gap-2 text-cyan-400 hover:text-white transition-all group"
         >
-          <div className="w-10 h-10 flex items-center justify-center rounded-full border border-cyan-400 group-hover:bg-cyan-400 group-hover:text-black shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all">
-            <FaArrowLeft />
+          <div className="w-10 h-10 flex items-center justify-center rounded-full border border-cyan-400 group-hover:bg-cyan-400 group-hover:text-black shadow-[0_0_10px_rgba(34,211,238,0.2)]">
+            <FaArrowLeft size={14} />
           </div>
-          <span className="font-medium tracking-wide">Back</span>
+          <span className="hidden sm:inline font-medium uppercase tracking-tighter">Back</span>
         </button>
+
+        <h2 className="text-2xl md:text-4xl font-bold text-center">
+          About <span className="text-cyan-400">Me</span>
+        </h2>
+        
+        {/* Spacer for centering heading on desktop */}
+        <div className="w-10 hidden md:block"></div>
       </div>
 
-      {/* Heading */}
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
-        About <span className="text-cyan-400">Me</span>
-      </h2>
-
-      <div className="grid md:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+      {/* --- Main Content Grid --- */}
+      {/* Mobile: flex-col (upar-niche) | Desktop: md:grid (baaye-daaye) */}
+      <div className="flex flex-col md:grid md:grid-cols-[1fr_1.5fr] gap-10 md:gap-16 max-w-6xl mx-auto items-center md:items-start">
         
-        {/* LEFT PROFILE CARD */}
-        <div className="flex justify-center md:pt-16">
-          <div className="relative">
-            <div className="bg-cyan-400 w-[260px] h-[300px] rounded-2xl flex flex-col items-center justify-end pb-8 text-center shadow-2xl transition-transform hover:scale-105 duration-300">
-              <div className="absolute -top-16">
+        {/* LEFT: Profile Card (Flexible width) */}
+        <div className="w-full max-w-[280px] md:max-w-full flex justify-center md:sticky md:top-32">
+          <div className="relative w-full pt-12">
+            <div className="bg-cyan-400 w-full aspect-[4/5] rounded-3xl flex flex-col items-center justify-end pb-10 text-center shadow-2xl transition-all hover:-rotate-2">
+              <div className="absolute -top-8 md:-top-12">
                 <img
                   src={profile}
                   alt="Chauhan Ayushi"
-                  className="w-32 h-32 rounded-full border-4 border-[#2f3b46] object-cover shadow-xl"
+                  className="w-24 h-24 md:w-36 md:h-36 rounded-2xl border-4 border-[#2f3b46] object-cover shadow-2xl rotate-3"
                 />
               </div>
-              <h3 className="text-xl font-bold text-black px-4">Chauhan Ayushi</h3>
-              <p className="text-sm font-medium text-black/80 mt-2 italic">Full Stack Developer</p>
+              <div className="px-4">
+                <h3 className="text-xl md:text-2xl font-black text-black leading-tight">Chauhan Ayushi</h3>
+                <div className="h-1 w-10 bg-black/20 mx-auto my-2 rounded-full"></div>
+                <p className="text-xs md:text-sm font-bold text-black/70 uppercase tracking-widest">Developer</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* RIGHT CONTENT */}
-        <div className="bg-[#1f2937]/30 p-6 rounded-2xl backdrop-blur-sm">
+        {/* RIGHT: Tabs & Info (Expands on Desktop) */}
+        <div className="w-full bg-[#1f2937]/50 p-6 md:p-10 rounded-[2rem] border border-white/5 backdrop-blur-xl">
           
-          {/* Tabs Container (Scrollable for mobile) */}
-          <div className="flex gap-4 md:gap-6 border-b border-gray-600 mb-8 overflow-x-auto no-scrollbar whitespace-nowrap">
+          {/* Responsive Tabs bar */}
+          <div className="flex space-x-1 md:space-x-4 border-b border-gray-700/50 mb-8 overflow-x-auto pb-1 no-scrollbar">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`pb-3 text-sm md:text-base font-medium transition-all relative ${
+                className={`px-4 py-2 text-xs md:text-sm font-bold transition-all rounded-t-xl whitespace-nowrap ${
                   activeTab === tab.id
-                    ? "text-cyan-400"
-                    : "text-gray-400 hover:text-cyan-300"
+                    ? "bg-cyan-400 text-black shadow-[0_-4px_10px_rgba(34,211,238,0.2)]"
+                    : "text-gray-400 hover:text-cyan-400"
                 }`}
               >
                 {tab.label}
-                {activeTab === tab.id && (
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 rounded-full" />
-                )}
               </button>
             ))}
           </div>
 
-          {/* TAB CONTENT */}
-          <div className="min-h-[300px] animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Dynamic Content Area */}
+          <div className="transition-all duration-500 ease-in-out">
             {activeTab === "education" && (
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {[
-                  { title: "BCA", inst: "VNSGU University", session: "2024 - 26", res: "Running (6th Semester)" },
-                  { title: "HSC", inst: "Gautami Kanya Vidhyalaya", session: "2023 - 24", res: "82.40%" },
-                  { title: "SSC", inst: "Gautami Kanya Vidhyalaya", session: "2021 - 22", res: "82.40%" }
-                ].map((edu, index) => (
-                  <div key={index} className="border-l-2 border-cyan-400/30 pl-4 hover:border-cyan-400 transition-colors">
-                    <h4 className="text-cyan-400 font-bold text-lg">{edu.title}</h4>
-                    <p className="text-sm text-gray-300 mt-1">Institute: {edu.inst}</p>
-                    <div className="flex justify-between mt-2 text-xs text-gray-400 italic">
-                      <span>Session: {edu.session}</span>
-                      <span>Result: {edu.res}</span>
+                  { title: "BCA", inst: "VNSGU University", date: "2024 - 26", status: "Pursuing" },
+                  { title: "HSC", inst: "Gautami Kanya Vidhyalaya", date: "2023 - 24", status: "82.40%" },
+                  { title: "SSC", inst: "Gautami Kanya Vidhyalaya", date: "2021 - 22", status: "82.40%" }
+                ].map((edu, i) => (
+                  <div key={i} className="group relative pl-6 border-l-2 border-cyan-400/20 hover:border-cyan-400 transition-all">
+                    <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-all"></div>
+                    <h4 className="text-cyan-400 font-bold md:text-lg">{edu.title}</h4>
+                    <p className="text-xs md:text-sm text-gray-300 font-medium">{edu.inst}</p>
+                    <div className="flex justify-between mt-2 text-[10px] md:text-xs text-gray-500 font-bold uppercase">
+                      <span>{edu.date}</span>
+                      <span className="text-cyan-400/60">{edu.status}</span>
                     </div>
                   </div>
                 ))}
@@ -99,40 +104,44 @@ const About = () => {
             )}
 
             {activeTab === "course" && (
-              <div className="grid grid-cols-1 gap-4">
-                {["Web Development Bootcamp", "React & Tailwind Mastery", "UI/UX Design Fundamentals"].map((c, i) => (
-                  <div key={i} className="bg-[#2f3b46] p-4 rounded-lg border border-gray-700 hover:border-cyan-400 transition-all">
-                    <p className="text-gray-200">✨ {c}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {["Web Development", "React Mastery", "UI/UX Design"].map((c, i) => (
+                  <div key={i} className="p-4 bg-[#2f3b46] rounded-2xl border border-white/5 hover:border-cyan-400/30 transition-all">
+                    <p className="text-gray-200 text-xs md:text-sm font-bold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> {c}
+                    </p>
                   </div>
                 ))}
               </div>
             )}
 
             {activeTab === "experience" && (
-              <ul className="space-y-4">
-                <li className="flex gap-3 items-start"><span className="text-cyan-400">▹</span> 1+ Year Freelancing (Frontend focus)</li>
-                <li className="flex gap-3 items-start"><span className="text-cyan-400">▹</span> Worked on 10+ Production-ready Projects</li>
-                <li className="flex gap-3 items-start"><span className="text-cyan-400">▹</span> Internship as Web Developer</li>
-              </ul>
+              <div className="space-y-4">
+                {[
+                  "1+ Year Freelancing Experience",
+                  "Built 10+ Client Portfolios",
+                  "MERN Stack Internship"
+                ].map((exp, i) => (
+                  <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border-r-4 border-cyan-400">
+                    <p className="text-xs md:text-sm text-gray-300">{exp}</p>
+                  </div>
+                ))}
+              </div>
             )}
 
             {activeTab === "details" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-1">
-                  <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">Name</p>
-                  <p className="text-gray-200 font-medium">Chauhan Ayushi</p>
+              <div className="grid grid-cols-1 gap-6">
+                <div className="flex flex-col md:flex-row md:justify-between border-b border-white/5 pb-4">
+                  <span className="text-[10px] uppercase text-gray-500 font-black">Email</span>
+                  <span className="text-sm md:text-base text-cyan-400 font-medium">ayushichauhan5821@gmail.com</span>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">Email</p>
-                  <p className="text-gray-200 font-medium text-xs sm:text-base break-words">ayushichauhan5821@gmail.com</p>
+                <div className="flex flex-col md:flex-row md:justify-between border-b border-white/5 pb-4">
+                  <span className="text-[10px] uppercase text-gray-500 font-black">Location</span>
+                  <span className="text-sm md:text-base text-gray-200 font-medium">Surat, Gujarat</span>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">Location</p>
-                  <p className="text-gray-200 font-medium">Surat, Gujarat</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-gray-500 uppercase tracking-widest font-bold">Main Skills</p>
-                  <p className="text-cyan-400 font-medium">MERN Stack, Tailwind</p>
+                <div className="flex flex-col md:flex-row md:justify-between">
+                  <span className="text-[10px] uppercase text-gray-500 font-black">Open for Work</span>
+                  <span className="text-sm md:text-base text-green-400 font-bold">Available Now</span>
                 </div>
               </div>
             )}

@@ -6,6 +6,7 @@ import Skills from "./Skills";
 import Services from "./Services";
 import Portfolio from "./Portfolio";
 import Contact from "./Contact";
+import Footer from "./Footer";
 
 const App = () => {
   const homeRef = useRef(null);
@@ -34,6 +35,7 @@ const App = () => {
       <section ref={servicesRef}><Services /></section>
       <section ref={portfolioRef}><Portfolio /></section>
       <section ref={contactRef}><Contact /></section>
+      <Footer />
     </div>
   );
 };
